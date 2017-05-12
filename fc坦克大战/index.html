@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script src="js/map.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="content">
+			<div id="main">
+				<div class="mapDiv"></div>
+				<div class="objDiv">
+					<div class="bos"></div>
+<!--					<div class="player"></div>-->
+				</div>
+			</div>
+		</div>
+		<script>
+		var main = document.getElementById("main");
+		var mapDiv = main.getElementsByClassName("mapDiv")[0];
+		var objDiv = main.getElementsByClassName("objDiv")[0];
+		
+		//绘制地图
+		Map(map[0]);
+		function Map(arr) {
+			for(var i=0;i<26;i++) {
+				for(var j=0;j<26;j++) {
+					var div = document.createElement("div");
+					switch(arr[i][j]) {
+						case '0':div.className = 'map';break;
+						case '1':div.className = 'map wall';break;
+						case '2':div.className = 'map stone';break;
+					}
+					mapDiv.appendChild(div);
+				}
+			}
+		}
+		
+		//创建玩家
+		Player('player1');
+		function Player(className) {
+			var div = document.createElement('div');
+			div.className = className;
+			objDiv.appendChild(div);
+		}
+		
+		//玩家移动
+		var oMapWalls=mapDiv.getElementsByClassName("map wall");
+		var oMapStones=mapDiv.getElementsByClassName("map stone");
+		playerMove();
+		function playerMove() {
+			var player = objDiv.getElementsByClassName("player1")[0];
+			var top = player.offsetTop;
+			var left = player.offsetLeft;
+			var timer=0;
+			var onoff=false;
+			document.onkeydown=function(ev) {
+				clearInterval(timer);
+				timer=setInterval(function(){
+					switch(ev.keyCode) {
+						case 87: {
+							if(!onoff){
+								var num=0;
+								player.style.transform="rotate(0deg)";
+								for(var i=0;i<oMapWalls.length;i++) {
+									if(!coll(player,oMapWalls[i])) {
+										num++;
+										if(num==oMapWalls.length) {
+											top-=0.5;
+										}
+										player.style.top = top+'px';
+										player.style.left = left+'px';
+									}else{
+										top+=1;
+										onoff=true;
+									}
+								}
+							}
+						} break;
+						case 83: {
+							if(!onoff){
+								var num=0;
+								player.style.transform="rotate(180deg)";
+								for(var i=0;i<oMapWalls.length;i++) {
+									if(!coll(player,oMapWalls[i])) {
+										num++;
+										if(num==oMapWalls.length) {
+											top+=0.5;
+										}
+										player.style.top = top+'px';
+										player.style.left = left+'px';
+									}else{
+										top-=1;
+										onoff=true;
+									}
+								}
+							}
+						} break;
+						case 65: {
+							if(!onoff){
+								var num=0;
+								player.style.transform="rotate(-90deg)";
+								for(var i=0;i<oMapWalls.length;i++) {
+									if(!coll(player,oMapWalls[i])) {
+										num++;
+										if(num==oMapWalls.length) {
+											left-=0.5;
+										}
+										player.style.top = top+'px';
+										player.style.left = left+'px';
+									}else{
+										left+=1;
+										onoff=true;
+									}
+								}
+							}
+						} break;
+						case 68: {
+							if(!onoff){
+								var num=0;
+								player.style.transform="rotate(90deg)";
+								for(var i=0;i<oMapWalls.length;i++) {
+									if(!coll(player,oMapWalls[i])) {
+										num++;
+										if(num==oMapWalls.length) {
+											left+=0.5;
+										}
+										player.style.top = top+'px';
+										player.style.left = left+'px';
+									}else{
+										left-=1;
+										onoff=true;
+									}
+								}
+							}
+						} break;
+					}
+				},1)	
+			}
+			document.onkeyup=function(){
+				clearInterval(timer);
+				onoff=false;
+			}
+		}
+		
+		//体积碰撞函数
+		function coll(obj1,obj2){
+			var div1All = obj1.getBoundingClientRect();
+			var top1 = div1All.top;
+			var bottom1 = div1All.bottom;
+			var left1 = div1All.left;
+			var right1 = div1All.right;
+			
+			var div2All = obj2.getBoundingClientRect();
+			var top2 = div2All.top;
+			var bottom2 = div2All.bottom;
+			var left2 = div2All.left;
+			var right2 = div2All.right;
+			
+			if(right1-2>left2&&bottom1-2>top2&&left1+2<right2&&top1+2<bottom2){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		var num=0;
+		for(var i=100;i<=114;i++){
+			console.log(num+=i)
+		}
+		</script>
+	</body>
+</html>

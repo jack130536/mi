@@ -1,0 +1,70 @@
+*{
+	margin: 0;
+	margin: 0;
+}
+body{
+	background-color: #eee;
+	overflow: hidden;
+}
+#content{
+	width: 512px;
+	height: 448px;
+	background-color: #ddd;
+	position: absolute;
+	left: 0;right: 0;top: 0;bottom: 0;
+	margin: auto;
+	border: 1px solid #000;	
+}
+#main{
+	width: 416px;
+	height: 416px;
+	position: absolute;
+	left:30px;top: 0;bottom: 0;
+	margin: auto;
+	background-color: #000;
+}
+/*墙壁*/
+.map{
+	width: 16px;
+	height: 16px;
+	float:left;
+}
+.wall{
+	background-image: url(../images/tankAll.gif);
+	background-position: 0px -96px;
+}
+.stone{
+	background-image: url(../images/tankAll.gif);
+	background-position: -16px -96px;
+}
+.bos{
+	width: 32px;
+	height: 32px;
+	background-image: url(../images/tankAll.gif);
+	background-position: -256px 0px;
+	position: absolute;
+	left: 0;right: 0;bottom: 0;
+	margin: auto;
+}
+/*玩家1*/
+.player1{
+	width: 31px;
+	height: 31px;
+	background-image:url(../images/wudi.gif),url(../images/tankAll.gif);
+	background-position:0 2px,0px 0px;
+	background-repeat: no-repeat;
+	position: absolute;
+	bottom:0;
+	left:128px
+}
+/*玩家2*/
+.player2{
+	width: 31px;
+	height: 31px;
+	background-image: url(../images/wudi.gif),url(../images/tankAll.gif);
+	background-repeat: no-repeat;
+	background-position:0 2px,-128px 0px;
+	position: absolute;
+	bottom:0;
+	left:256px
+}
